@@ -1,0 +1,24 @@
+<resources>
+
+    <declare-styleable name="CustomValues">
+        <attr name="colorVerse" format="color" />
+        <attr name="colorChorus" format="color" />
+        <attr name="colorBridge" format="color" />
+        <attr name="colorDivider" format="color" />
+        <attr name="colorCardActivityWindowBackground" format="color" />
+    </declare-styleable>
+
+    <style name="AppTheme" parent="Theme.AppCompat.DayNight.DarkActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorDivider">@color/dividerColor</item>
+        <item name="colorCardActivityWindowBackground">@color/colorWindowBackground</item>
+        <item name="colorVerse">@color/colorVerse</item>
+        <item name="colorChorus">@color/colorChorus</item>
+        <item name="colorBridge">@color/colorBridge</item>
+
+        <item name="android:forceDarkAllowed">false</item>
+    </style>
+
+</resources>

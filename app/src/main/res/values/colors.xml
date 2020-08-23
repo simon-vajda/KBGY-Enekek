@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#00695c</color>
+    <color name="colorPrimaryDark">#003d33</color>
+    <color name="colorAccent">#03DAC5</color>
+    <color name="colorVerse">#90a4ae</color>
+    <color name="colorChorus">#4db6ac</color>
+    <color name="colorBridge">#7986cb</color>
+    <color name="dividerColor">#cfcfcf</color>
+    <color name="colorWindowBackground">#e1e1e1</color>
+</resources>

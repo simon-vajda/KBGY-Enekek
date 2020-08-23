@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">KBGY Énekek</string>
+    <string name="settings">Beállítások</string>
+    <string name="search">Keresés</string>
+    <string name="theme">Téma</string>
+    <string name="bridge">Híd</string>
+    <string name="chorus">Refrén</string>
+    <string name="verse">Versszak</string>
+
+    <string-array name="theme_labels">
+        <item>Alapértelmezett</item>
+        <item>Világos</item>
+        <item>Sötét</item>
+    </string-array>
+    <string-array name="theme_values">
+        <item>-1</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+</resources>
