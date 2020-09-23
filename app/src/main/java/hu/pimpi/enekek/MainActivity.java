@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(is);
 
-            SongItem item = new SongItem(((Element) doc.getElementsByTagName("title").item(0)).getTextContent(), filename);
+            SongItem item = new SongItem(filename, ((Element) doc.getElementsByTagName("title").item(0)).getTextContent(), "");
             songs.add(item);
         }
 

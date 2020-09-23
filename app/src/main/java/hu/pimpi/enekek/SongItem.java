@@ -3,26 +3,32 @@ package hu.pimpi.enekek;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import androidx.annotation.NonNull;
+
 import java.util.Objects;
 
 public class SongItem implements Parcelable {
-    private String title;
     private String filename;
+    private String title;
+    private String lyrics;
 
-    public SongItem(String title, String filename) {
-        this.title = title;
+    public SongItem(String filename, String title, String lyrics) {
         this.filename = filename;
+        this.title = title;
+        this.lyrics = lyrics;
     }
 
     protected SongItem(Parcel in) {
-        title = in.readString();
         filename = in.readString();
+        title = in.readString();
+        lyrics = in.readString();
     }
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(title);
         dest.writeString(filename);
+        dest.writeString(title);
+        dest.writeString(lyrics);
     }
 
     @Override
@@ -42,14 +48,6 @@ public class SongItem implements Parcelable {
         }
     };
 
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
     public String getFilename() {
         return filename;
     }
@@ -58,20 +56,38 @@ public class SongItem implements Parcelable {
         this.filename = filename;
     }
 
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getLyrics() {
+        return lyrics;
+    }
+
+    public void setLyrics(String lyrics) {
+        this.lyrics = lyrics;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         SongItem songItem = (SongItem) o;
-        return title.equals(songItem.title) &&
-                filename.equals(songItem.filename);
+        return filename.equals(songItem.filename) &&
+                title.equals(songItem.title) &&
+                Objects.equals(lyrics, songItem.lyrics);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(title, filename);
+        return Objects.hash(filename, title, lyrics);
     }
 
+    @NonNull
     @Override
     public String toString() {
         return title;
