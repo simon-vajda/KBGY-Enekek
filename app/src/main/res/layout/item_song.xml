@@ -15,7 +15,7 @@
         android:paddingLeft="16dp"
         android:paddingTop="14dp"
         android:paddingRight="16dp"
-        android:paddingBottom="14dp"
+        android:paddingBottom="8dp"
         android:text="{song_title}"
         android:textColor="?android:attr/textColorPrimary"
         android:textSize="18sp"
@@ -23,15 +23,32 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:id="@+id/item_song_lyrics"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:paddingBottom="0dp"
+        android:text="{lyrics}"
+        android:textColor="?android:attr/textColorSecondary"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/item_song_title" />
+
     <View
         android:id="@+id/song_divider"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="6dp"
         android:layout_marginEnd="8dp"
         android:background="?attr/colorDivider"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/item_song_title" />
+        app:layout_constraintTop_toBottomOf="@id/item_song_lyrics" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

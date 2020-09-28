@@ -1,5 +1,6 @@
 package hu.pimpi.enekek;
 
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -44,7 +45,15 @@ public class SongsAdapter extends RecyclerView.Adapter<SongsAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int listPosition) {
-        holder.title.setText(list.get(listPosition).getTitle());
+        SongItem item = list.get(listPosition);
+
+        holder.title.setText(Html.fromHtml(item.getTitle()));
+        if(item.getLyrics() != null && !item.getLyrics().isEmpty()) {
+            holder.lyrics.setText(Html.fromHtml(item.getLyrics()));
+            holder.lyrics.setVisibility(View.VISIBLE);
+        } else {
+            holder.lyrics.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -88,12 +97,14 @@ public class SongsAdapter extends RecyclerView.Adapter<SongsAdapter.ViewHolder> 
     static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         public TextView title;
+        public TextView lyrics;
         private OnItemClickListener onItemClickListener;
 
         public ViewHolder(View itemView, OnItemClickListener onItemClickListener) {
             super(itemView);
             this.onItemClickListener = onItemClickListener;
             title = itemView.findViewById(R.id.item_song_title);
+            lyrics = itemView.findViewById(R.id.item_song_lyrics);
             itemView.setOnClickListener(this);
         }
 
@@ -114,5 +125,13 @@ public class SongsAdapter extends RecyclerView.Adapter<SongsAdapter.ViewHolder> 
 
     public interface OnItemClickListener {
         void onItemClick(int position);
+    }
+
+    public ArrayList<SongItem> getList() {
+        return list;
+    }
+
+    public void setList(ArrayList<SongItem> list) {
+        this.list = list;
     }
 }

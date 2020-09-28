@@ -3,14 +3,14 @@ package hu.pimpi.enekek;
 import android.content.Context;
 import android.database.Cursor;
 
-import com.readystatesoftware.sqliteasset.SQLiteAssetHelper;
-
 import java.util.ArrayList;
 import java.util.List;
 
+import hu.pimpi.enekek.assethelper.SQLiteAssetHelper;
+
 public class DatabaseHelper extends SQLiteAssetHelper {
 
-    private static final String DATABASE_NAME = "songs.db";
+    private static final String DATABASE_NAME = "songs_fts5.db";
     private static final int DATABASE_VERSION = 1;
 
     public DatabaseHelper(Context context) {
@@ -21,9 +21,11 @@ public class DatabaseHelper extends SQLiteAssetHelper {
         List<SongItem> songs = new ArrayList<>();
 
         Cursor cursor = getReadableDatabase().rawQuery(
-                "SELECT filename, snippet(songs, '<b>', '</b>', '...', 2, 20) as title_snippet, snippet(songs, '<b>', '</b>', '...', 3, 8) as lyrics_snippet " +
+                "SELECT filename, snippet(songs, 2, '<b>', '</b>', '...', 20) as title_snippet, snippet(songs, 3, '<b>', '</b>', '...', 15) as lyrics_snippet " +
                         "FROM songs " +
-                        "WHERE songs MATCH '?*'", new String[]{query});
+                        "WHERE songs MATCH ? " +
+                        "ORDER BY bm25(songs, 1.0, 1.0, 10.0, 5.0)"
+        , new String[]{query+"*"});
 
         while (cursor.moveToNext()) {
             String filename = cursor.getString(0);
@@ -47,6 +49,8 @@ public class DatabaseHelper extends SQLiteAssetHelper {
 
             songs.add(new SongItem(filename, title, null));
         }
+
+        //Collections.sort(songs, new NaturalOrderComparator());
 
         return songs;
     }

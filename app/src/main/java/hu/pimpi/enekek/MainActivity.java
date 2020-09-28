@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -36,6 +37,8 @@ public class MainActivity extends AppCompatActivity {
     SongsAdapter adapter;
     SearchView searchView;
 
+    DatabaseHelper databaseHelper;
+
     private CharSequence searchQuery;
 
     @Override
@@ -45,10 +48,12 @@ public class MainActivity extends AppCompatActivity {
         setTheme();
         setContentView(R.layout.activity_main);
 
+        databaseHelper = new DatabaseHelper(this);
+
         songs = new ArrayList<>();
         if(savedInstanceState == null) {
             try {
-                loadFiles();
+                songs.addAll(databaseHelper.getSongs());
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -68,21 +73,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         recyclerView.setAdapter(adapter);
-    }
-
-    void loadFiles() throws IOException, ParserConfigurationException, SAXException {
-        for(String filename : getAssets().list("songs")) {
-            InputStream is = getAssets().open("songs/" + filename);
-
-            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            Document doc = dBuilder.parse(is);
-
-            SongItem item = new SongItem(filename, ((Element) doc.getElementsByTagName("title").item(0)).getTextContent(), "");
-            songs.add(item);
-        }
-
-        Collections.sort(songs, new NaturalOrderComparator());
     }
 
     @Override
@@ -115,7 +105,17 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextChange(String s) {
-                adapter.getFilter().filter(s);
+                //adapter.getFilter().filter(s);
+                if(!s.isEmpty()) {
+                    Log.i("query", s);
+                    adapter.getList().clear();
+                    adapter.getList().addAll(databaseHelper.search(s));
+                    adapter.notifyDataSetChanged();
+                } else {
+                    adapter.getList().clear();
+                    adapter.getList().addAll(adapter.getFullList());
+                    adapter.notifyDataSetChanged();
+                }
                 return false;
             }
         });
