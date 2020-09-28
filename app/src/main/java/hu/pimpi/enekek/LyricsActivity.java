@@ -1,13 +1,18 @@
 package hu.pimpi.enekek;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NavUtils;
+import androidx.core.app.TaskStackBuilder;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -97,5 +102,16 @@ public class LyricsActivity extends AppCompatActivity {
             if(!text.equals("Blank Verse"))
                 verses.add(new Verse(type, text));
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        if(item.getItemId() == android.R.id.home) {
+            Intent upIntent = NavUtils.getParentActivityIntent(this);
+            startActivity(upIntent);
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }
