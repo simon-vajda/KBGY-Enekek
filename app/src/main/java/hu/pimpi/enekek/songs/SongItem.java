@@ -1,4 +1,4 @@
-package hu.pimpi.enekek;
+package hu.pimpi.enekek.songs;
 
 import android.os.Parcel;
 import android.os.Parcelable;

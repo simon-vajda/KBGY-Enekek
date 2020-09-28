@@ -1,4 +1,4 @@
-package hu.pimpi.enekek;
+package hu.pimpi.enekek.lyrics;
 
 import android.graphics.Rect;
 import android.view.View;

@@ -11,7 +11,6 @@ import android.util.Log;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
@@ -22,6 +21,11 @@ import java.util.ArrayList;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+
+import hu.pimpi.enekek.R;
+import hu.pimpi.enekek.lyrics.LyricsAdapter;
+import hu.pimpi.enekek.lyrics.LyricsMarginDecorator;
+import hu.pimpi.enekek.lyrics.Verse;
 
 public class LyricsActivity extends AppCompatActivity {
 

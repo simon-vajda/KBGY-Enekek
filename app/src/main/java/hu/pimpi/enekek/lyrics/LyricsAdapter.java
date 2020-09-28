@@ -1,4 +1,4 @@
-package hu.pimpi.enekek;
+package hu.pimpi.enekek.lyrics;
 
 import android.content.Context;
 import android.util.TypedValue;
@@ -10,6 +10,8 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
+
+import hu.pimpi.enekek.R;
 
 public class LyricsAdapter extends RecyclerView.Adapter<LyricsAdapter.ViewHolder> {
 

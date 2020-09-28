@@ -1,4 +1,4 @@
-package hu.pimpi.enekek;
+package hu.pimpi.enekek.utils;
 
 import java.util.*;
 

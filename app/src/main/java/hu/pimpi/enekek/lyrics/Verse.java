@@ -1,4 +1,4 @@
-package hu.pimpi.enekek;
+package hu.pimpi.enekek.lyrics;
 
 public class Verse {
 

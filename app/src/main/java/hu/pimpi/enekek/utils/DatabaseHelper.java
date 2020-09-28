@@ -1,4 +1,4 @@
-package hu.pimpi.enekek;
+package hu.pimpi.enekek.utils;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -6,6 +6,7 @@ import android.database.Cursor;
 import java.util.ArrayList;
 import java.util.List;
 
+import hu.pimpi.enekek.songs.SongItem;
 import hu.pimpi.enekek.assethelper.SQLiteAssetHelper;
 
 public class DatabaseHelper extends SQLiteAssetHelper {
