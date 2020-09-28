@@ -3,6 +3,7 @@ package hu.pimpi.enekek;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -28,6 +29,11 @@ public class SettingsActivity extends AppCompatActivity {
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
+
+        String infoMessage = getString(R.string.info) + "\n" + getString(R.string.application) + ": v";
+
+        TextView versionText = findViewById(R.id.settings_version);
+        versionText.setText(infoMessage + BuildConfig.VERSION_NAME);
     }
 
     @Override

@@ -6,6 +6,8 @@
     <string name="bridge">Híd</string>
     <string name="chorus">Refrén</string>
     <string name="verse">Versszak</string>
+    <string name="info">Kecskeméti Baptista Gyülekezet dalszövegei</string>
+    <string name="application">Alkalmazás</string>
 
     <string-array name="theme_labels">
         <item>Alapértelmezett</item>
