@@ -12,7 +12,7 @@ import hu.pimpi.enekek.assethelper.SQLiteAssetHelper;
 public class DatabaseHelper extends SQLiteAssetHelper {
 
     private static final String DATABASE_NAME = "songs_fts5.db";
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 1;
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -26,7 +26,7 @@ public class DatabaseHelper extends SQLiteAssetHelper {
                 "SELECT filename, snippet(songs, 0, '<b>', '</b>', '...', 20) as title_snippet, snippet(songs, 1, '<b>', '</b>', '...', 15) as lyrics_snippet " +
                         "FROM songs " +
                         "WHERE songs MATCH ? " +
-                        "ORDER BY bm25(songs, 8.0, 1.0)"
+                        "ORDER BY bm25(songs, 5.0, 1.0)"
         , new String[]{query+"*"});
 
         while (cursor.moveToNext()) {
