@@ -3,7 +3,6 @@ package hu.pimpi.enekek;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -17,9 +16,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-import hu.pimpi.enekek.utils.DatabaseHelper;
 import hu.pimpi.enekek.songs.SongItem;
 import hu.pimpi.enekek.songs.SongsAdapter;
+import hu.pimpi.enekek.utils.DatabaseHelper;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -96,16 +95,11 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextChange(String s) {
-                //adapter.getFilter().filter(s);
                 if(!s.isEmpty()) {
-                    Log.i("query", s);
-                    adapter.getList().clear();
-                    adapter.getList().addAll(databaseHelper.search(s));
-                    adapter.notifyDataSetChanged();
+                    adapter.showResults(databaseHelper.search(s));
+                    recyclerView.smoothScrollToPosition(0);
                 } else {
-                    adapter.getList().clear();
-                    adapter.getList().addAll(adapter.getFullList());
-                    adapter.notifyDataSetChanged();
+                    adapter.resetList();
                 }
                 return false;
             }

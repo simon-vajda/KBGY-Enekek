@@ -5,8 +5,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Filter;
-import android.widget.Filterable;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,7 +14,7 @@ import java.util.List;
 
 import hu.pimpi.enekek.R;
 
-public class SongsAdapter extends RecyclerView.Adapter<SongsAdapter.ViewHolder> implements Filterable {
+public class SongsAdapter extends RecyclerView.Adapter<SongsAdapter.ViewHolder> {
 
     private ArrayList<SongItem> list;
     private ArrayList<SongItem> fullList;
@@ -57,40 +55,6 @@ public class SongsAdapter extends RecyclerView.Adapter<SongsAdapter.ViewHolder> 
             holder.lyrics.setVisibility(View.GONE);
         }
     }
-
-    @Override
-    public Filter getFilter() {
-        return filter;
-    }
-
-    private Filter filter = new Filter() {
-        @Override
-        protected FilterResults performFiltering(CharSequence pattern) {
-            List<SongItem> filteredList = new ArrayList<>();
-
-            if(pattern == null || pattern.length() == 0) {
-                filteredList.addAll(fullList);
-            } else {
-                for(SongItem item : fullList) {
-                    if(item.getTitle().toLowerCase().replaceAll("[^a-z0-9]", "")
-                            .contains(pattern.toString().toLowerCase().replaceAll("[^a-z0-9]", "")))
-                        filteredList.add(item);
-                }
-            }
-
-            FilterResults results = new FilterResults();
-            results.values = filteredList;
-
-            return results;
-        }
-
-        @Override
-        protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
-            list.clear();
-            list.addAll((List) filterResults.values);
-            notifyDataSetChanged();
-        }
-    };
 
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
         this.onItemClickListener = onItemClickListener;
@@ -133,7 +97,13 @@ public class SongsAdapter extends RecyclerView.Adapter<SongsAdapter.ViewHolder> 
         return list;
     }
 
-    public void setList(ArrayList<SongItem> list) {
-        this.list = list;
+    public void showResults(List<SongItem> results) {
+        list.clear();
+        list.addAll(results);
+        notifyDataSetChanged();
+    }
+
+    public void resetList() {
+        showResults(fullList);
     }
 }
