@@ -13,14 +13,14 @@
             android:name=".SettingsActivity"
             android:label="@string/settings"
             android:parentActivityName=".MainActivity"
-            android:launchMode="singleInstance" />
+            android:launchMode="singleTask" />
         <activity
             android:name=".LyricsActivity"
             android:parentActivityName=".MainActivity"
-            android:launchMode="singleInstance" />
+            android:launchMode="singleTask" />
         <activity
             android:name=".MainActivity"
-            android:launchMode="singleInstance">
+            android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

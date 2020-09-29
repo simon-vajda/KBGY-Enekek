@@ -36,17 +36,6 @@ public class SettingsActivity extends AppCompatActivity {
         versionText.setText(infoMessage + BuildConfig.VERSION_NAME);
     }
 
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-
-        if(item.getItemId() == android.R.id.home) {
-            Intent upIntent = NavUtils.getParentActivityIntent(this);
-            startActivity(upIntent);
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
     public static class SettingsFragment extends PreferenceFragmentCompat {
 
         private String theme;

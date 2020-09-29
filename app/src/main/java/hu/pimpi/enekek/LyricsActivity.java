@@ -103,15 +103,4 @@ public class LyricsActivity extends AppCompatActivity {
                 verses.add(new Verse(type, text));
         }
     }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-
-        if(item.getItemId() == android.R.id.home) {
-            Intent upIntent = NavUtils.getParentActivityIntent(this);
-            startActivity(upIntent);
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 }
