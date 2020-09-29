@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <declare-styleable name="CustomValues">
         <attr name="colorVerse" format="color" />
@@ -18,7 +18,7 @@
         <item name="colorChorus">@color/colorChorus</item>
         <item name="colorBridge">@color/colorBridge</item>
 
-        <item name="android:forceDarkAllowed">false</item>
+        <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
     </style>
 
 </resources>
