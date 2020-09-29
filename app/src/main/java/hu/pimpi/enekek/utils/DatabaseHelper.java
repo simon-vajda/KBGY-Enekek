@@ -12,20 +12,21 @@ import hu.pimpi.enekek.assethelper.SQLiteAssetHelper;
 public class DatabaseHelper extends SQLiteAssetHelper {
 
     private static final String DATABASE_NAME = "songs_fts5.db";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        setForcedUpgrade();
     }
 
     public List<SongItem> search(String query) {
         List<SongItem> songs = new ArrayList<>();
 
         Cursor cursor = getReadableDatabase().rawQuery(
-                "SELECT filename, snippet(songs, 2, '<b>', '</b>', '...', 20) as title_snippet, snippet(songs, 3, '<b>', '</b>', '...', 15) as lyrics_snippet " +
+                "SELECT filename, snippet(songs, 0, '<b>', '</b>', '...', 20) as title_snippet, snippet(songs, 1, '<b>', '</b>', '...', 15) as lyrics_snippet " +
                         "FROM songs " +
                         "WHERE songs MATCH ? " +
-                        "ORDER BY bm25(songs, 1.0, 1.0, 10.0, 5.0)"
+                        "ORDER BY bm25(songs, 8.0, 1.0)"
         , new String[]{query+"*"});
 
         while (cursor.moveToNext()) {
