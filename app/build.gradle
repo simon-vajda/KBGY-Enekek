@@ -20,6 +20,11 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    packagingOptions {
+        exclude 'lib/x86/libsqlite3x.so'
+        exclude 'lib/x86_64/libsqlite3x.so'
+    }
 }
 
 dependencies {
