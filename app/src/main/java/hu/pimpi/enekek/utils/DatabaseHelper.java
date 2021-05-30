@@ -6,8 +6,8 @@ import android.database.Cursor;
 import java.util.ArrayList;
 import java.util.List;
 
-import hu.pimpi.enekek.songs.SongItem;
 import hu.pimpi.enekek.assethelper.SQLiteAssetHelper;
+import hu.pimpi.enekek.songs.SongItem;
 
 public class DatabaseHelper extends SQLiteAssetHelper {
 
@@ -19,6 +19,7 @@ public class DatabaseHelper extends SQLiteAssetHelper {
         setForcedUpgrade();
     }
 
+    // query is not empty
     public List<SongItem> search(String query) {
         List<SongItem> songs = new ArrayList<>();
 
@@ -27,7 +28,7 @@ public class DatabaseHelper extends SQLiteAssetHelper {
                         "FROM songs " +
                         "WHERE songs MATCH ? " +
                         "ORDER BY bm25(songs, 5.0, 1.0)"
-        , new String[]{query+"*"});
+        , new String[]{query + "*"});
 
         while (cursor.moveToNext()) {
             String filename = cursor.getString(0);

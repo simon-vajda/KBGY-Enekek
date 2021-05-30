@@ -95,8 +95,10 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextChange(String s) {
-                if(!s.isEmpty()) {
-                    adapter.showResults(databaseHelper.search(s));
+                String query = s.replaceAll("[^A-Za-z0-9á-űÁ-Ű ]", "");
+
+                if(!query.isEmpty()) {
+                    adapter.showResults(databaseHelper.search(query));
                     recyclerView.smoothScrollToPosition(0);
                 } else {
                     adapter.resetList();
