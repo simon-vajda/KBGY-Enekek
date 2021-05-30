@@ -12,7 +12,8 @@ import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.SearchView;
 import androidx.preference.PreferenceManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+
+import com.l4digital.fastscroll.FastScrollRecyclerView;
 
 import java.util.ArrayList;
 
@@ -22,7 +23,7 @@ import hu.pimpi.enekek.utils.DatabaseHelper;
 
 public class MainActivity extends AppCompatActivity {
 
-    RecyclerView recyclerView;
+    FastScrollRecyclerView recyclerView;
     ArrayList<SongItem> songs;
     SongsAdapter adapter;
     SearchView searchView;
