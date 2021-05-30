@@ -1,18 +1,14 @@
 package hu.pimpi.enekek;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.NavUtils;
-import androidx.core.app.TaskStackBuilder;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.MenuItem;
+import android.view.WindowManager;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -27,7 +23,6 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
-import hu.pimpi.enekek.R;
 import hu.pimpi.enekek.lyrics.LyricsAdapter;
 import hu.pimpi.enekek.lyrics.LyricsMarginDecorator;
 import hu.pimpi.enekek.lyrics.Verse;
@@ -64,6 +59,11 @@ public class LyricsActivity extends AppCompatActivity {
 
         adapter = new LyricsAdapter(this, verses);
         recyclerView.setAdapter(adapter);
+
+        boolean preventTimeout = getSharedPreferences("hu.pimpi.enekek_preferences", MODE_PRIVATE).getBoolean("screen_timeout_preference", true);
+
+        if(preventTimeout)
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
     }
 
     void loadData(String filename) throws IOException, ParserConfigurationException, SAXException {

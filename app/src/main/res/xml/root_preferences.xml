@@ -7,4 +7,8 @@
         android:key="theme_preference"
         android:summary="%s"
         android:title="@string/theme" />
+    <SwitchPreference
+        android:defaultValue="true"
+        android:key="screen_timeout_preference"
+        android:title="@string/prevent_screen_timeout" />
 </PreferenceScreen>
