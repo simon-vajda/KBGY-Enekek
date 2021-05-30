@@ -9,6 +9,7 @@
     <string name="info">Kecskeméti Baptista Gyülekezet dalszövegei</string>
     <string name="application">Alkalmazás</string>
     <string name="prevent_screen_timeout">A képernyő nem kapcsol ki a dalszövegeknél</string>
+    <string name="no_result">Nincs találat</string>
 
     <string-array name="theme_labels">
         <item>Alapértelmezett</item>

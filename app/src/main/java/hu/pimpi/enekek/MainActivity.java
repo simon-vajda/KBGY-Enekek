@@ -5,6 +5,8 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -27,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<SongItem> songs;
     SongsAdapter adapter;
     SearchView searchView;
+    TextView noResultView;
 
     DatabaseHelper databaseHelper;
 
@@ -64,6 +67,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         recyclerView.setAdapter(adapter);
+
+        noResultView = findViewById(R.id.no_result_main);
+        checkIfEmpty();
     }
 
     @Override
@@ -104,6 +110,9 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     adapter.resetList();
                 }
+
+                checkIfEmpty();
+
                 return false;
             }
         });
@@ -116,8 +125,6 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onCreateOptionsMenu(menu);
     }
-
-
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -139,5 +146,9 @@ public class MainActivity extends AppCompatActivity {
         } else {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
         }
+    }
+
+    private void checkIfEmpty() {
+        noResultView.setVisibility(adapter.getItemCount() == 0 ? View.VISIBLE : View.GONE);
     }
 }
