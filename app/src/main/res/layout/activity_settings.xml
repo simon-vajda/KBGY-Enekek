@@ -31,6 +31,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:lineSpacingMultiplier="1.2"
+        android:onClick="onInfoClick"
         android:paddingTop="6dp"
         android:paddingBottom="6dp"
         android:text="{version}"

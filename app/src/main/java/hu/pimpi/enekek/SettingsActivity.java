@@ -2,15 +2,13 @@ package hu.pimpi.enekek;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
-import androidx.core.app.NavUtils;
-import androidx.core.app.TaskStackBuilder;
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
@@ -20,6 +18,9 @@ import hu.pimpi.enekek.utils.DatabaseHelper;
 public class SettingsActivity extends AppCompatActivity {
 
     DatabaseHelper db;
+
+    long lastClick = 0;
+    int clickCount = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +44,22 @@ public class SettingsActivity extends AppCompatActivity {
 
         TextView versionText = findViewById(R.id.settings_version);
         versionText.setText(infoMessage);
+    }
+
+    public void onInfoClick(View view) {
+        if(System.currentTimeMillis() - lastClick < 500) {
+            if(++clickCount == 2) {
+                Toast.makeText(this, R.string.easter_egg, Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getApplicationContext(), LyricsActivity.class);
+                intent.putExtra("filename", "Béke vár rám ().xml");
+                startActivity(intent);
+                clickCount = 0;
+            }
+        } else {
+            clickCount = 0;
+        }
+
+        lastClick = System.currentTimeMillis();
     }
 
     public static class SettingsFragment extends PreferenceFragmentCompat {

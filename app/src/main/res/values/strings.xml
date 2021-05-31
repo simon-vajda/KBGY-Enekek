@@ -11,6 +11,7 @@
     <string name="num_of_songs">Énekek száma</string>
     <string name="prevent_screen_timeout">A képernyő nem kapcsol ki a dalszövegeknél</string>
     <string name="no_result">Nincs találat</string>
+    <string name="easter_egg">Béke vár ránk, testvér!</string>
 
     <string-array name="theme_labels">
         <item>Alapértelmezett</item>
