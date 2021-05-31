@@ -102,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextChange(String s) {
-                String query = s.replaceAll("[^A-Za-z0-9á-űÁ-Ű ]", "");
+                String query = s.replaceAll("[^A-Za-z0-9á-űÁ-Ű ]", "").trim();
 
                 if(!query.isEmpty()) {
                     adapter.showResults(databaseHelper.search(query));
