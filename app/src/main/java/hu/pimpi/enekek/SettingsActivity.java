@@ -15,7 +15,11 @@ import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 
+import hu.pimpi.enekek.utils.DatabaseHelper;
+
 public class SettingsActivity extends AppCompatActivity {
+
+    DatabaseHelper db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,10 +34,15 @@ public class SettingsActivity extends AppCompatActivity {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
-        String infoMessage = getString(R.string.info) + "\n" + getString(R.string.application) + ": v";
+        db = new DatabaseHelper(this);
+        int songCount = db.getNumberOfSongs();
+
+        String infoMessage = getString(R.string.info) + "\n" +
+                getString(R.string.num_of_songs) + ": " + songCount + "\n" +
+                getString(R.string.application) + ": v" + BuildConfig.VERSION_NAME;
 
         TextView versionText = findViewById(R.id.settings_version);
-        versionText.setText(infoMessage + BuildConfig.VERSION_NAME);
+        versionText.setText(infoMessage);
     }
 
     public static class SettingsFragment extends PreferenceFragmentCompat {

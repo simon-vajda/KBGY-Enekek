@@ -38,6 +38,7 @@ public class DatabaseHelper extends SQLiteAssetHelper {
             songs.add(new SongItem(filename, title, lyrics));
         }
 
+        cursor.close();
         return songs;
     }
 
@@ -55,6 +56,14 @@ public class DatabaseHelper extends SQLiteAssetHelper {
 
         //Collections.sort(songs, new NaturalOrderComparator());
 
+        cursor.close();
         return songs;
+    }
+
+    public int getNumberOfSongs() {
+        Cursor cursor = getReadableDatabase().rawQuery("SELECT title FROM songs", null);
+        int count = cursor.getCount();
+        cursor.close();
+        return count;
     }
 }
