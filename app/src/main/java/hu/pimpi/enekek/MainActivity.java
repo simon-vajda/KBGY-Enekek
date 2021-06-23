@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.l4digital.fastscroll.FastScrollRecyclerView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import hu.pimpi.enekek.songs.SongItem;
 import hu.pimpi.enekek.songs.SongsAdapter;
@@ -101,11 +102,11 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            public boolean onQueryTextChange(String s) {
-                String query = s.replaceAll("[^A-Za-z0-9á-űÁ-Ű ]", "").trim();
+            public boolean onQueryTextChange(String query) {
+                List<SongItem> results = databaseHelper.search(query);
 
-                if(!query.isEmpty()) {
-                    adapter.showResults(databaseHelper.search(query));
+                if(results != null) {
+                    adapter.showResults(results);
                     recyclerView.smoothScrollToPosition(0);
                 } else {
                     adapter.resetList();

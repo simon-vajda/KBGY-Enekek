@@ -2,6 +2,7 @@ package hu.pimpi.enekek.utils;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,16 +20,50 @@ public class DatabaseHelper extends SQLiteAssetHelper {
         setForcedUpgrade();
     }
 
-    // query is not empty
-    public List<SongItem> search(String query) {
-        List<SongItem> songs = new ArrayList<>();
+    private boolean isNumber(String s) {
+        int i = 0;
 
-        Cursor cursor = getReadableDatabase().rawQuery(
-                "SELECT filename, snippet(songs, 0, '<b>', '</b>', '...', 20) as title_snippet, snippet(songs, 1, '<b>', '</b>', '...', 15) as lyrics_snippet " +
-                        "FROM songs " +
-                        "WHERE songs MATCH ? " +
-                        "ORDER BY bm25(songs, 5.0, 1.0)"
-        , new String[]{query + "*"});
+        if(s.charAt(0) == 'b' || s.charAt(0) == 'B') {
+            if(s.length() == 1)
+                return false;
+            else
+                i = 1;
+        }
+
+        for(; i < s.length(); ++i) {
+            if(s.charAt(i) < '0' || '9' < s.charAt(i)) return false;
+        }
+
+        return true;
+    }
+
+    public List<SongItem> search(String st) {
+        if(st == null)
+            return null;
+
+        String searchText = st.toLowerCase().replaceAll("[^a-z0-9á-ű ]|[ ]{2,}", "").trim();
+
+        if(searchText.isEmpty())
+            return null;
+
+        String orderedQuery = "SELECT filename, snippet(songs, 0, '<b>', '</b>', '...', 20) as title_snippet, snippet(songs, 1, '<b>', '</b>', '...', 15) as lyrics_snippet " +
+                "FROM songs " +
+                "WHERE songs MATCH ? AND rank MATCH 'bm25(5.0, 1.0)' " +
+                "ORDER BY rank";
+
+        String unorderedQuery = "SELECT filename, snippet(songs, 0, '<b>', '</b>', '...', 20) as title_snippet, snippet(songs, 1, '<b>', '</b>', '...', 15) as lyrics_snippet " +
+                "FROM songs " +
+                "WHERE songs MATCH ?";
+
+        StringBuilder matchCondition = new StringBuilder(searchText);
+        matchCondition.append(" OR ");
+
+        for (String s : searchText.split(" ")) {
+            matchCondition.append(s + "* ");
+        }
+
+        Cursor cursor = getReadableDatabase().rawQuery(isNumber(searchText) ? unorderedQuery : orderedQuery, new String[]{matchCondition.toString()});
+        List<SongItem> songs = new ArrayList<>();
 
         while (cursor.moveToNext()) {
             String filename = cursor.getString(0);
